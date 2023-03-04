@@ -9,11 +9,10 @@ const initLoader = () => {
     (url) => {
       if( !checkUrl && location.href.indexOf(url) > 0 )
         checkUrl = true;
-    }
+    });
     
     if(!checkUrl) 
       return '';
-  );
   
 }
 
