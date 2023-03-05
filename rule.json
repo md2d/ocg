@@ -64,6 +64,11 @@
       "prompt": "",
       "stable": true
     },
+    "heading_title":{
+       "selector": "page_description[lang][heading_title]",
+       "prompt": "Create a h1 title by that category name \"{name}\"",
+       "maxLength": 100
+    },
     "description_top": {
       "selector": "page_description[lang][description_top]",
       "prompt": "Create a short category description by that category name \"{name}\"",
