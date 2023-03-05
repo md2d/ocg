@@ -1,75 +1,75 @@
 {
   "catalog/product": {
     "name": {
-      "selector": "product_description[1][name]",
+      "selector": "product_description[lang][name]",
       "prompt": ""
     },
     "description": {
-      "selector": "product_description[1][description]",
+      "selector": "product_description[lang][description]",
       "prompt": "Create a product description by that product name \"{name}\""
     },
     "meta_title": {
-      "selector": "product_description[1][meta_title]",
+      "selector": "product_description[lang][meta_title]",
       "prompt": "Create a meta title by that product name \"{name}\""
     },
     "meta_description": {
-      "selector": "product_description[1][meta_description]",
+      "selector": "product_description[lang][meta_description]",
       "prompt": "Create a meta description by that product name \"{name}\""
     },
     "meta_keyword": {
-      "selector": "product_description[1][meta_keyword]",
+      "selector": "product_description[lang][meta_keyword]",
       "prompt": "Create a meta keyword by that product name \"{name}\""
     },
     "tag": {
-      "selector": "product_description[1][tag]",
+      "selector": "product_description[lang][tag]",
       "prompt": "Create a few tags (delimiter is \",\") by that product name \"{name}\""
     }
   },
   "catalog/category": {
     "name": {
-      "selector": "category_description[1][name]",
+      "selector": "category_description[lang][name]",
       "prompt": ""
     },
     "description": {
-      "selector": "category_description[1][description]",
+      "selector": "category_description[lang][description]",
       "prompt": "Create a category description by that category name \"{name}\""
     },
     "meta_title": {
-      "selector": "category_description[1][meta_title]",
+      "selector": "category_description[lang][meta_title]",
       "prompt": "Create a meta title by that category name \"{name}\""
     },
     "meta_description": {
-      "selector": "category_description[1][meta_description]",
+      "selector": "category_description[lang][meta_description]",
       "prompt": "Create a meta description by that category name \"{name}\""
     },
     "meta_keyword": {
-      "selector": "category_description[1][meta_keyword]",
+      "selector": "category_description[lang][meta_keyword]",
       "prompt": "Create a meta keyword by that category name \"{name}\""
     }
   },
   "extension/module/ocfilter/page": {
     "name": {
-      "selector": "page_description[1][name]",
+      "selector": "page_description[lang][name]",
       "prompt": ""
     },
     "description_top": {
-      "selector": "page_description[1][description_top]",
+      "selector": "page_description[lang][description_top]",
       "prompt": "Create a short category description by that category name \"{name}\""
     },
     "description_bottom": {
-      "selector": "page_description[1][description_bottom]",
+      "selector": "page_description[lang][description_bottom]",
       "prompt": "Create an another short category description by that category name \"{name}\""
     },
     "meta_title": {
-      "selector": "page_description[1][meta_title]",
+      "selector": "page_description[lang][meta_title]",
       "prompt": "Create a meta title by that category name \"{name}\""
     },
     "meta_description": {
-      "selector": "page_description[1][meta_description]",
+      "selector": "page_description[lang][meta_description]",
       "prompt": "Create a meta description by that category name \"{name}\""
     },
     "meta_keyword": {
-      "selector": "page_description[1][meta_keyword]",
+      "selector": "page_description[lang][meta_keyword]",
       "prompt": "Create a meta keyword by that category name \"{name}\""
     }
   }
