@@ -2,7 +2,8 @@
   "catalog/product": {
     "name": {
       "selector": "product_description[lang][name]",
-      "prompt": ""
+      "prompt": "",
+      "stable": true
     },
     "description": {
       "selector": "product_description[lang][description]",
@@ -28,7 +29,8 @@
   "catalog/category": {
     "name": {
       "selector": "category_description[lang][name]",
-      "prompt": ""
+      "prompt": "",
+      "stable": true
     },
     "description": {
       "selector": "category_description[lang][description]",
@@ -50,7 +52,8 @@
   "extension/module/ocfilter/page": {
     "name": {
       "selector": "page_description[lang][name]",
-      "prompt": ""
+      "prompt": "",
+      "stable": true
     },
     "description_top": {
       "selector": "page_description[lang][description_top]",
