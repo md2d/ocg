@@ -15,6 +15,11 @@
       "prompt": "Create a meta title by that product name \"{name}\"",
       "maxLength": 100
     },
+     "meta_h1": {
+      "selector": "product_description[lang][meta_h1]",
+      "prompt": "Create a unique meta h1 by that product name \"{name}\"",
+      "maxLength": 100
+    },
     "meta_description": {
       "selector": "product_description[lang][meta_description]",
       "prompt": "Create a meta description by that product name \"{name}\"",
