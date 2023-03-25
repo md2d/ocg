@@ -8,7 +8,7 @@
     "description": {
       "selector": "product_description[lang][description]",
       "prompt": "Create a product description by that product name \"{name}\"",
-      "maxLength": 500
+      "maxLength": 1030
     },
     "meta_title": {
       "selector": "product_description[lang][meta_title]",
@@ -45,7 +45,7 @@
     "description": {
       "selector": "category_description[lang][description]",
       "prompt": "Create a category description by that category name \"{name}\"",
-      "maxLength": 500
+      "maxLength": 1025
     },
     "meta_title": {
       "selector": "category_description[lang][meta_title]",
