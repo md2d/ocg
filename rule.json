@@ -47,6 +47,11 @@
       "prompt": "Create a category description by that category name \"{name}\"",
       "maxLength": 1025
     },
+    "meta_h1": {
+      "selector": "product_description[lang][meta_h1]",
+      "prompt": "Create a unique meta h1 by that category name \"{name}\"",
+      "maxLength": 130
+    },
     "meta_title": {
       "selector": "category_description[lang][meta_title]",
       "prompt": "Create a meta title by that category name \"{name}\"",
