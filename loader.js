@@ -259,7 +259,7 @@ const initLoader = () => {
 	let authorLink = document.createElement('a');
 	authorLink.href="https://t.me/d1medrol"
 	authorLink.target = "_blank";
-	authorLink.innerHTML = '<i class="fa fa-telegram"></i>';
+	authorLink.innerHTML = '<i class="fa fa-support"></i>';
 	authorLink.className = "btn btn-success";
 	$(authorLink).attr('data-toggle' , 'tooltip').attr('data-original-title' , 'ChatGPT SEO Author');
 	
