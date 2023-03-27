@@ -48,7 +48,7 @@
       "maxLength": 1025
     },
     "meta_h1": {
-      "selector": "product_description[lang][meta_h1]",
+      "selector": "category_description[lang][meta_h1]",
       "prompt": "Create a unique meta h1 by that category name \"{name}\"",
       "maxLength": 130
     },
@@ -65,6 +65,38 @@
     "meta_keyword": {
       "selector": "category_description[lang][meta_keyword]",
       "prompt": "Create a meta keyword by that category name \"{name}\"",
+      "maxLength": 180
+    }
+  },
+  "catalog/information": {
+    "title": {
+      "selector": "information_description[lang][title]",
+      "prompt": "",
+      "stable": true
+    },
+    "description": {
+      "selector": "information_description[lang][description]",
+      "prompt": "Create a full page description by that title name \"{title}\"",
+      "maxLength": 2047
+    },
+    "meta_h1": {
+      "selector": "information_description[lang][meta_h1]",
+      "prompt": "Create a unique meta h1 by that page title \"{title}\"",
+      "maxLength": 130
+    },
+    "meta_title": {
+      "selector": "information_description[lang][meta_title]",
+      "prompt": "Create a meta title by that page title \"{title}\"",
+      "maxLength": 100
+    },
+    "meta_description": {
+      "selector": "information_description[lang][meta_description]",
+      "prompt": "Create a meta description by that page title \"{title}\"",
+      "maxLength": 300
+    },
+    "meta_keyword": {
+      "selector": "information_description[lang][meta_keyword]",
+      "prompt": "Create a meta keyword by that page title \"{title}\"",
       "maxLength": 180
     }
   },
