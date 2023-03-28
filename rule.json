@@ -136,5 +136,12 @@
       "prompt": "Create a meta keyword by that category name \"{name}\"",
       "maxLength": 180
     }
+  },
+  "extension/module/html":{
+      "description": {
+          "selector": "module_description[lang][description]",
+          "prompt": "Create a any html code",
+          "maxLength":2030
+      }
   }
 }
