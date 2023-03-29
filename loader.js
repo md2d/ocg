@@ -80,7 +80,7 @@ const massiveUpdate = () => {
 		icon.className = "fa fa-spinner";
 		$(arr[index]).parent()[0].appendChild(icon);
 		
-		const type = location.href.indexOf('catalog/category') > 0 || location.href.indexOf('editors/category') > ? 'category':'product';
+		const type = (location.href.indexOf('catalog/category') > 0 || location.href.indexOf('editors/category') > 0) ? 'category':'product';
 		
 		$.get( location.href.replace(routeRoute , 'extension/module/chatgptseo/massiveUpdate' )+'&id='+itemId+'&type='+type ,  (data) => {
 			console.log(itemId + ' - ' + data);
