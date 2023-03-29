@@ -130,7 +130,7 @@ const makeQuery = (query , length , fieldname , askIndex) => {
 		if(field.length){
 			
 			if(field.css('display') == 'none'){ // wysiwing ckeditor and summernote
-				if(CKEDITOR)
+				if(typeof(CKEDITOR) !== "undefined")
 					CKEDITOR.instances[field.attr('id')].setData(answer);
 				else
 					field.summernote('code' , answer);
@@ -227,7 +227,7 @@ const initFieldsValue = (value) => {
 		let input = $("[name=\""+fieldSt.selector+"\"]");
 		isField = isField || input.length > 0;
 		if(input.css('display') == 'none'){
-			if(CKEDITOR)
+			if(typeof(CKEDITOR) !== "undefined")
 				CKEDITOR.instances[input.attr('id')].getData();
 			else
 				fieldsValue[field] = input.summernote('code');
