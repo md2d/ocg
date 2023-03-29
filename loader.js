@@ -80,7 +80,7 @@ const massiveUpdate = () => {
 		icon.className = "fa fa-spinner";
 		$(arr[index]).parent()[0].appendChild(icon);
 		
-		const type = location.href.indexOf('catalog/category') > 0 ? 'category':'product';
+		const type = location.href.indexOf('catalog/category') > 0 || location.href.indexOf('editors/category') > ? 'category':'product';
 		
 		$.get( location.href.replace(routeRoute , 'extension/module/chatgptseo/massiveUpdate' )+'&id='+itemId+'&type='+type ,  (data) => {
 			console.log(itemId + ' - ' + data);
@@ -203,7 +203,7 @@ const loadJson = () => {
 				if( location.href.indexOf(key) > 0 ){
 					pageRule = value;
 					initFieldsValue(value);
-					if(!isField && (location.href.indexOf('catalog/category') < 0) && (location.href.indexOf('catalog/product') <0))
+					if(!isField && (location.href.indexOf('catalog/category') < 0) && (location.href.indexOf('catalog/product') <0) (location.href.indexOf('editors/category') < 0) && (location.href.indexOf('editors/product') <0))
 						hideButtons();
 				}
 			}
@@ -306,7 +306,7 @@ const initLoader = () => {
 	modal.innerHTML = '<div id="modalEditorConfig" class="modal" role="dialog"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="alert alert-success hide" role="alert" id="sca">{{ success }}</div><div class="modal-header"><button type="button" class="close" data-dismiss="modal">x</button><h4 class="modal-title">ChatGPT Config Editor</h4></div><div class="modal-body"><div id="jsoneditor"></div></div><div class="modal-footer"><button id="saveJsonEditor" type="button" class="btn btn-success">{{ save }}</button></div></div></div></div>';
 	
 	document.body.appendChild(modal);
-	document.querySelector("#content .page-header .pull-right").appendChild(btnGroup);
+	$("#content .page-header .pull-right:last")[0].appendChild(btnGroup);
 	
 	document.getElementById('saveJsonEditor').addEventListener('click' , () => {
 	  $.post( location.href.replace(routeRoute , 'extension/module/chatgptseo/saveCnfg' ) , {json: jsonEditor.getText() } , (data) => {
