@@ -129,8 +129,12 @@ const makeQuery = (query , length , fieldname , askIndex) => {
 		statusInfo[askIndex] = 1;
 		if(field.length){
 			
-			if(field.css('display') == 'none') // wysiwing
-				field.summernote('code' , answer);
+			if(field.css('display') == 'none'){ // wysiwing ckeditor and summernote
+				if(CKEDITOR)
+					CKEDITOR.instances[field.attr('id')].setData(answer);
+				else
+					field.summernote('code' , answer);
+			}
 			else
 				field.val(answer);
 		}
@@ -208,8 +212,9 @@ const loadJson = () => {
 				}
 			}
 			initFieldRefresh();
-		} catch {
+		} catch (exception){
 			alert('Error loading JSON, chech up your json file!');
+			console.log(exception);
 			hideButtons();
 		};
 	  }
@@ -221,8 +226,12 @@ const initFieldsValue = (value) => {
 	for (const [field, fieldSt] of Object.entries(value)) {
 		let input = $("[name=\""+fieldSt.selector+"\"]");
 		isField = isField || input.length > 0;
-		if(input.css('display') == 'none')
-			fieldsValue[field] = input.summernote('code');
+		if(input.css('display') == 'none'){
+			if(CKEDITOR)
+				CKEDITOR.instances[input.attr('id')].getData();
+			else
+				fieldsValue[field] = input.summernote('code');
+		}
 		else
 			fieldsValue[field] = input.val(); 
 	}
