@@ -203,7 +203,7 @@ const loadJson = () => {
 				if( location.href.indexOf(key) > 0 ){
 					pageRule = value;
 					initFieldsValue(value);
-					if(!isField && (location.href.indexOf('catalog/category') < 0) && (location.href.indexOf('catalog/product') <0) (location.href.indexOf('editors/category') < 0) && (location.href.indexOf('editors/product') <0))
+					if(!isField && (location.href.indexOf('catalog/category') < 0) && (location.href.indexOf('catalog/product') <0) && (location.href.indexOf('editors/category') < 0) && (location.href.indexOf('editors/product') <0))
 						hideButtons();
 				}
 			}
