@@ -137,6 +137,75 @@
       "maxLength": 180
     }
   },
+  "editors/product": {
+    "name": {
+      "selector": "product_description[lang][name]",
+      "prompt": "",
+      "stable": true
+    },
+    "description": {
+      "selector": "product_description[lang][description]",
+      "prompt": "Create a product description by that product name \"{name}\"",
+      "maxLength": 1030
+    },
+    "meta_title": {
+      "selector": "product_description[lang][meta_title]",
+      "prompt": "Create a meta title by that product name \"{name}\"",
+      "maxLength": 100
+    },
+     "meta_h1": {
+      "selector": "product_description[lang][meta_h1]",
+      "prompt": "Create a unique meta h1 by that product name \"{name}\"",
+      "maxLength": 100
+    },
+    "meta_description": {
+      "selector": "product_description[lang][meta_description]",
+      "prompt": "Create a meta description by that product name \"{name}\"",
+      "maxLength": 500
+    },
+    "meta_keyword": {
+      "selector": "product_description[lang][meta_keyword]",
+      "prompt": "Create a meta keyword by that product name \"{name}\"",
+      "maxLength": 180
+    },
+    "tag": {
+      "selector": "product_description[lang][tag]",
+      "prompt": "Create a few tags (delimiter is \",\") by that product name \"{name}\"",
+      "maxLength": 190
+    }
+  },
+  "editors/category": {
+    "name": {
+      "selector": "category_description[lang][name]",
+      "prompt": "",
+      "stable": true
+    },
+    "description": {
+      "selector": "category_description[lang][description]",
+      "prompt": "Create a category description by that category name \"{name}\"",
+      "maxLength": 1025
+    },
+    "meta_h1": {
+      "selector": "category_description[lang][meta_h1]",
+      "prompt": "Create a unique meta h1 by that category name \"{name}\"",
+      "maxLength": 130
+    },
+    "meta_title": {
+      "selector": "category_description[lang][meta_title]",
+      "prompt": "Create a meta title by that category name \"{name}\"",
+      "maxLength": 100
+    },
+    "meta_description": {
+      "selector": "category_description[lang][meta_description]",
+      "prompt": "Create a meta description by that category name \"{name}\"",
+      "maxLength": 300
+    },
+    "meta_keyword": {
+      "selector": "category_description[lang][meta_keyword]",
+      "prompt": "Create a meta keyword by that category name \"{name}\"",
+      "maxLength": 180
+    }
+  },
   "extension/module/html":{
       "description": {
           "selector": "module_description[lang][description]",
