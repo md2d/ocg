@@ -228,7 +228,7 @@ const initFieldsValue = (value) => {
 		isField = isField || input.length > 0;
 		if(input.css('display') == 'none'){
 			if(typeof(CKEDITOR) !== "undefined")
-				CKEDITOR.instances[input.attr('id')].getData();
+				fieldsValue[field] = CKEDITOR.instances[input.attr('id')].getData();
 			else
 				fieldsValue[field] = input.summernote('code');
 		}
