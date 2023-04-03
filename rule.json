@@ -212,5 +212,22 @@
           "prompt": "Create a any html code",
           "maxLength":2030
       }
+  },
+  "catalog/review": {
+      "author": {
+        "selector": "author",
+        "prompt": "Напиши случайное женское имя",
+        "maxLength": 30
+      },
+      "product": {
+        "selector": "product",
+        "stable": true,
+        "prompt": ""
+      },
+      "text": {
+        "selector": "text",
+        "prompt": "Напиши случайный отзыв о товаре \"{product}\" в любой тональности (позитивной или негативной) от женского лица",
+        "maxLength": 500
+      }
   }
 }
