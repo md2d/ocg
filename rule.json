@@ -213,6 +213,39 @@
           "maxLength":2030
       }
   },
+  "catalog/manufacturer":{
+      "name":{
+         "selector":"manufacturer_description[lang][name]",
+         "prompt":"",
+         "stable":true
+      },
+      "description":{
+         "selector":"manufacturer_description[lang][description]",
+         "prompt":"Create the brand description by that manufacturer name: \"{name}\"",
+         "stable":true,
+         "maxLength":3899
+      },
+      "meta_title":{
+         "selector":"manufacturer_description[lang][meta_title]",
+         "prompt":"Create a meta title by that manufacturer name \"{name}\"",
+         "maxLength":100
+      },
+      "meta_h1":{
+         "selector":"manufacturer_description[lang][meta_h1]",
+         "prompt":"Create a unique meta h1 by that manufacturer name \"{name}\" without quotes",
+         "maxLength":100
+      },
+      "meta_description":{
+         "selector":"manufacturer_description[lang][meta_description]",
+         "prompt":"Create a meta description by that manufacturer name \"{name}\"",
+         "maxLength":500
+      },
+      "meta_keyword":{
+         "selector":"manufacturer_description[lang][meta_keyword]",
+         "prompt":"Create a meta keyword by that manufacturer name \"{name}\"",
+         "maxLength":180
+      }
+   },
   "catalog/review": {
       "author": {
         "selector": "author",
