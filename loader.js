@@ -77,7 +77,8 @@ const warningMsg = (msg) => {
 
 const massiveUpdate = () => {
 	
-	let nTokens = parseInt("{{ nTokens }}") > 0 ? parseInt("{{ nTokens }}") : 1;
+	let nTokens = parseInt("{{ nTokens }}") ;
+	nTokens = nTokens > 0 ? nTokens : 1;
 	
 	tokens.length = 0;
 	for(let i=0; i < nTokens; i++){
