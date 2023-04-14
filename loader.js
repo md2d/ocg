@@ -3,7 +3,9 @@ const allowedPaths = [
 	'{{ allowedPaths }}'
 ];
 
-let fieldsValue = [] , pageRule = [] , statusInfo=[] , jsonEditor, jsonText, globalRule, isField = false;
+
+
+let fieldsValue = [] , pageRule = [] , statusInfo=[] , jsonEditor, jsonText, globalRule, tokens = [], isField = false;
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
@@ -62,13 +64,32 @@ const checkWait = ()=> {
 	return false;
 }
 
+const removeElementByIndex = (arr, index) => {
+	if (index > -1) {
+		arr.splice(index, 1);
+	}
+	return arr;
+}
 
+const warningMsg = (msg) => {
+	return '<div class="alert alert-warning alert-dismissible"><i class="fa fa-check-circle"></i> '+msg+'<button type="button" class="close" data-dismiss="alert">×</button> </div>';
+}
 
 const massiveUpdate = () => {
 	
-	const updateItem = (index,arr) => {
+	let nTokens = parseInt("{{ nTokens }}") > 0 ? parseInt("{{ nTokens }}") : 1;
+	
+	tokens.length = 0;
+	for(let i=0; i < nTokens; i++){
+		tokens.push(i);
+	}
+	
+	const updateItem = (index,arr,keySeeker) => {
 		
-		if(arr.length == index){
+		if(!keySeeker)
+			keySeeker = 0;
+		
+		if(arr.length <= index){
 			$('#ChatBtnSet > *').eq(1).attr('disabled', false);
 			return 0;
 		}
@@ -79,28 +100,46 @@ const massiveUpdate = () => {
 		icon.id = 'icon-'+itemId;
 		icon.className = "fa fa-spinner";
 		$(arr[index]).parent()[0].appendChild(icon);
-		
+		let isConnect = false;
 		const type = (location.href.indexOf('catalog/category') > 0 || location.href.indexOf('editors/category') > 0) ? 'category':'product';
 		
-		$.get( location.href.replace(routeRoute , 'extension/module/chatgptseo/massiveUpdate' )+'&id='+itemId+'&type='+type ,  (data) => {
-			console.log(itemId + ' - ' + data);
-			let json = JSON.parse(data);
-			if(json.success == 1)
-				$(arr[index]).parent().parent().css('background', 'rgba(75,175,80,0.17)');
-			else
-				$(arr[index]).parent().parent().css('background', '#f26a603d');
+		$.getJSON( location.href.replace(routeRoute , 'extension/module/chatgptseo/massiveUpdate' )+'&keySeeker='+keySeeker+'&id='+itemId+'&type='+type ,  (data) => {
+			try{
+				console.log(itemId + ' - ' , data);
+				let json = data;
+				if(json.updateFields){
+					Object.keys(json.updateFields).forEach(key => {
+					  isConnect = isConnect + json.updateFields[key]*1;
+					});
+					
+					if(!isConnect){ // key is exceeded
+						console.log('Script haven\'t a connect with OpenAI: keySeeker №' + (json.keySeeker*1+1));
+						removeElementByIndex(tokens , parseInt(json.keySeeker) );
+					}
+				}
+
+				if(json.success == 1 && isConnect)
+					$(arr[index]).parent().parent().css('background', 'rgba(75,175,80,0.17)');
+				else {
+					$(arr[index]).parent().parent().css('background', '#f26a603d');
+				}
+			} catch(e){
+				console.log(itemId , e);
+			}
 			
-		 }).done(function() {
-			$(arr[index]).parent().parent().css('background', 'rgba(75,175,80,0.17)');
+		  }
+		  
+		  ).done(function() {
+			if(isConnect)
+				updateItem(index + tokens.length , arr, keySeeker);
 		  })
 		  .fail(function() {
+			updateItem(index + tokens.length , arr, keySeeker);
 			$(arr[index]).parent().parent().css('background', '#f26a603d');
 		  })
 		  .always(function() {
 			$('#icon-'+itemId).remove();
-			updateItem(index+1, arr );
 		  });
-		
 	}
 	const items = $("input[name=\"selected[]\"]:checked");
 	
@@ -108,11 +147,14 @@ const massiveUpdate = () => {
 		$('#overdiv').css('display','flex');
 		setTimeout("$('#overdiv').css('display','none')" , 100);
 		return true;
-	}
+	} 
 	
 	$('#ChatBtnSet > *').eq(1).attr('disabled', 'disabled');
 	
-	updateItem(0,items);
+	for (let i = 0; i < tokens.length;i++){
+		updateItem(i, items, tokens[i] );
+	}
+	
 	
 }
 
@@ -353,7 +395,6 @@ const loadJsonEditor = () => {
   document.head.appendChild(cssLink);
   document.head.appendChild(script);
 }
-
 
 
 
