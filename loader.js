@@ -1,15 +1,18 @@
-/* v.1.0 - by md2d */
+
+/* v.1.2.2 - by md2d*/ 
 const allowedPaths = [	
 	'{{ allowedPaths }}'
 ];
 
 
 
-let fieldsValue = [] , pageRule = [] , statusInfo=[] , jsonEditor, jsonText, globalRule, tokens = [], isField = false;
+let fieldsValue = [] , pageRule = [] , statusInfo=[] , jsonEditor, jsonText, globalRule, tokens = [], isField = false , isWorker = false;
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const routeRoute = urlParams.get('route');
+
+const btnWaitingText = "<i class=\"fa-gpt\"></i> ChatGPT SEO <i class=\"fa fa-play\"></i>";
 
 const btnClick = () => {
 	if(!pageRule)
@@ -39,6 +42,11 @@ const btnClick = () => {
 	
 }
 
+const stripTags = (html) =>
+{
+   return html.replace(/<[^>]*>?/gm, ' '); //$(html).text();
+}
+
 const btnClickSettings = () => {
 	
 	$('#modalEditorConfig').modal('show');
@@ -46,11 +54,22 @@ const btnClickSettings = () => {
 	
 }
 
+const changeBtnStyle = (isGreen) => {
+	const danger = "btn-warning";
+	const success = "btn-success";
+	$('#ChatBtnSet > *').each( function() {
+		if(isGreen)
+			$(this).removeClass(danger).addClass(success);
+		else 
+			$(this).removeClass(success).addClass(danger);
+	} );
+}
+
 const replaceVars = (string , vars) => {
 	//console.log(vars)
 	let newstr = string
-	for (const [field, value] of Object.entries(vars)) {
-		newstr = newstr.replaceAll('{' +field+ '}' ,  value );
+	for (const [field, value] of Object.entries(vars)) {		
+		newstr = newstr.replaceAll('{' +field+ '}' ,  pageRule[field].onlyText ? stripTags(value) :value );
 	}
 	
 	return newstr;
@@ -77,6 +96,21 @@ const warningMsg = (msg) => {
 
 const massiveUpdate = () => {
 	
+	const items = $("input[name=\"selected[]\"]:not(\".done\"):checked");
+	
+	if(!isWorker && items.length == 0){
+		$('#overdiv').css('display','flex');
+		setTimeout("$('#overdiv').css('display','none')" , 100);
+		return true;
+	}
+	
+	isWorker = !isWorker;
+	isWorker ? $('#ChatBtnSet > *').eq(0).find('.fa-play').removeClass('fa-play').addClass('fa-pause') : $('#ChatBtnSet > *').eq(0).find('.fa-pause').removeClass('fa-pause').addClass('fa-play');
+	
+	changeBtnStyle(!isWorker);
+	
+	if(!isWorker) return 0;
+	
 	let nTokens = parseInt("{{ nTokens }}") ;
 	nTokens = nTokens > 0 ? nTokens : 1;
 	
@@ -92,17 +126,25 @@ const massiveUpdate = () => {
 		
 		if(arr.length <= index){
 			$('#ChatBtnSet > *').eq(1).attr('disabled', false);
+			isWorker = false;
+			$('#ChatBtnSet > *').eq(0).find('.fa-pause').removeClass('fa-pause').addClass('fa-play');
+			changeBtnStyle(true);
 			return 0;
 		}
+		
+		if(!isWorker)
+			return 0;
 		
 		const itemId = arr[index].value;
 		
 		let icon = document.createElement('div');
 		icon.id = 'icon-'+itemId;
 		icon.className = "fa fa-spinner";
-		$(arr[index]).parent()[0].appendChild(icon);
+		$(arr[index]).addClass('done').parent()[0].appendChild(icon);
 		let isConnect = false;
 		const type = (location.href.indexOf('catalog/category') > 0 || location.href.indexOf('editors/category') > 0) ? 'category':'product';
+		
+		
 		
 		$.getJSON( location.href.replace(routeRoute , 'extension/module/chatgptseo/massiveUpdate' )+'&keySeeker='+keySeeker+'&id='+itemId+'&type='+type ,  (data) => {
 			try{
@@ -142,17 +184,11 @@ const massiveUpdate = () => {
 			$('#icon-'+itemId).remove();
 		  });
 	}
-	const items = $("input[name=\"selected[]\"]:checked");
 	
-	if(items.length == 0){
-		$('#overdiv').css('display','flex');
-		setTimeout("$('#overdiv').css('display','none')" , 100);
-		return true;
-	} 
 	
 	$('#ChatBtnSet > *').eq(1).attr('disabled', 'disabled');
 	
-	for (let i = 0; i < tokens.length;i++){
+	for (let i = 0; i < Math.min(tokens.length , items.length); i++ ){
 		updateItem(i, items, tokens[i] );
 	}
 	
@@ -212,20 +248,24 @@ const initFieldRefresh = () => {
 }
 
 const updateField = (field) => {
-	
-	if(!pageRule[field]['prompt']){
-		alert("Can't to find that field");
-	} else {
-		
-		let value = pageRule[field];
-		const placeHolder = replaceVars(value['prompt'] , fieldsValue ).replaceAll("'" , '"');
-		const apiQuery = prompt('' , placeHolder);
-		
-		if(apiQuery){
-			$('#overdiv').css('display','flex');
-			statusInfo = [0];
-			makeQuery(apiQuery , value.maxLength?value.maxLength:90 , value.selector, 0 );
+	try{
+		initFieldsValue(pageRule);
+		if(!pageRule[field]['prompt']){
+			alert("Can't to find that field");
+		} else {
+			
+			let value = pageRule[field];
+			const placeHolder = replaceVars(value['prompt'] , fieldsValue ).replaceAll("'" , '"');
+			const apiQuery = prompt('' , placeHolder);
+			
+			if(apiQuery){
+				$('#overdiv').css('display','flex');
+				statusInfo = [0];
+				makeQuery(apiQuery , value.maxLength?value.maxLength:90 , value.selector, 0 );
+			}
 		}
+	}catch(error){
+		console.log(error);
 	}
 	return false;
 }
@@ -298,8 +338,9 @@ const initLoader = () => {
 	btnGroup.id = 'ChatBtnSet';
 	let buttonGPT = document.createElement("button");
 	buttonGPT.disabled = !{{ status }};
-	buttonGPT.innerHTML = "<i class=\"fa-gpt\"></i> ChatGPT SEO"; 
+	buttonGPT.innerHTML = btnWaitingText; 
 	buttonGPT.style.paddingBottom = '8px';
+	buttonGPT.style.outline = 'none';
 	buttonGPT.className = "btn btn-success";
 	
 	
@@ -308,6 +349,7 @@ const initLoader = () => {
 	btnSettings.disabled = !{{ status }};
 	btnSettings.className = "btn btn-success";
 	btnSettings.style.paddingBottom = '8px';
+	btnSettings.style.outline = 'none';
 	$(btnSettings).attr('data-toggle' , 'tooltip').attr('data-original-title' , 'Config');
 	
 	let authorLink = document.createElement('a');
@@ -316,6 +358,7 @@ const initLoader = () => {
 	authorLink.innerHTML = '<i class="fa fa-support"></i>';
 	authorLink.className = "btn btn-success";
 	authorLink.style.paddingBottom = '8px';
+	authorLink.style.outline = 'none';
 	$(authorLink).attr('data-toggle' , 'tooltip').attr('data-original-title' , 'ChatGPT SEO Author');
 	
 	$(btnGroup).css({
@@ -335,7 +378,7 @@ const initLoader = () => {
 	
 	let over = document.createElement('div');
 	over.id = 'overdiv';
-over.innerHTML = '<i class="fa-5x fa fa-spinner"></i><style>.fa-spinner {animation: spin 5s infinite linear;-webkit-animation: spin2 5s infinite linear;}@keyframes spin {from {transform: scale(1) rotate(0deg);}to {transform: scale(1) rotate(360deg);}}@-webkit-keyframes spin2 {from {-webkit-transform: rotate(0deg);}to {-webkit-transform: rotate(360deg);}}.chatgptseo-refresh{float: right;right: 15px;z-index:5;position: absolute;top: 0;border-radius: 5px;} .fa-gpt{background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMiIgaGVpZ2h0PSIyMiIgdmlld0JveD0iMTQwIDE0MCA1MjAgNTIwIj48cGF0aCBkPSJNNjE3LjI0IDM1NGExMjYuMzYgMTI2LjM2IDAgMCAwLTEwLjg2LTEwMy43OSAxMjcuOCAxMjcuOCAwIDAgMC0xMzcuNjUtNjEuMzIgMTI2LjM2IDEyNi4zNiAwIDAgMC05NS4zMS00Mi40OSAxMjcuODEgMTI3LjgxIDAgMCAwLTEyMS45MiA4OC40OSAxMjYuNCAxMjYuNCAwIDAgMC04NC41IDYxLjMgMTI3LjgyIDEyNy44MiAwIDAgMCAxNS43MiAxNDkuODYgMTI2LjM2IDEyNi4zNiAwIDAgMCAxMC44NiAxMDMuNzkgMTI3LjgxIDEyNy44MSAwIDAgMCAxMzcuNjUgNjEuMzIgMTI2LjM2IDEyNi4zNiAwIDAgMCA5NS4zMSA0Mi40OSAxMjcuODEgMTI3LjgxIDAgMCAwIDEyMS45Ni04OC41NCAxMjYuNCAxMjYuNCAwIDAgMCA4NC41LTYxLjNBMTI3LjgyIDEyNy44MiAwIDAgMCA2MTcuMjQgMzU0ek00MjYuNTggNjIwLjQ5YTk0Ljc5IDk0Ljc5IDAgMCAxLTYwLjg1LTIyYy43Ny0uNDIgMi4xMi0xLjE2IDMtMS43bDEwMS01OC4zNGExNi40MiAxNi40MiAwIDAgMCA4LjMtMTQuMzdWMzgxLjY5bDQyLjY5IDI0LjY1YTEuNTIgMS41MiAwIDAgMSAuODMgMS4xN3YxMTcuOTJhOTUuMTggOTUuMTggMCAwIDEtOTQuOTcgOTUuMDZ6bS0yMDQuMjQtODcuMjNhOTQuNzQgOTQuNzQgMCAwIDEtMTEuMzQtNjMuN2MuNzUuNDUgMi4wNiAxLjI1IDMgMS43OWwxMDEgNTguMzRhMTYuNDQgMTYuNDQgMCAwIDAgMTYuNTkgMGwxMjMuMzEtNzEuMnY0OS4zYTEuNTMgMS41MyAwIDAgMS0uNjEgMS4zMWwtMTAyLjEgNTguOTVhOTUuMTYgOTUuMTYgMCAwIDEtMTI5Ljg1LTM0Ljc5em0tMjYuNTctMjIwLjQ5YTk0LjcxIDk0LjcxIDAgMCAxIDQ5LjQ4LTQxLjY4YzAgLjg3LS4wNSAyLjQxLS4wNSAzLjQ4djExNi42OGExNi40MSAxNi40MSAwIDAgMCA4LjI5IDE0LjM2TDM3Ni44IDQ3Ni44bC00Mi42OSAyNC42NWExLjUzIDEuNTMgMCAwIDEtMS40NC4xM2wtMTAyLjExLTU5YTk1LjE2IDk1LjE2IDAgMCAxLTM0Ljc5LTEyOS44MXptMzUwLjc0IDgxLjYyLTEyMy4zMS03MS4yIDQyLjY5LTI0LjY0YTEuNTMgMS41MyAwIDAgMSAxLjQ0LS4xM2wxMDIuMTEgNTguOTVhOTUuMDggOTUuMDggMCAwIDEtMTQuNjkgMTcxLjU1VjQwOC43NWExNi40IDE2LjQgMCAwIDAtOC4yNC0xNC4zNnpNNTg5IDMzMC40NGMtLjc1LS40Ni0yLjA2LTEuMjUtMy0xLjc5bC0xMDEtNTguMzRhMTYuNDYgMTYuNDYgMCAwIDAtMTYuNTkgMGwtMTIzLjMxIDcxLjJ2LTQ5LjNhMS41MyAxLjUzIDAgMCAxIC42MS0xLjMxbDEwMi4xLTU4LjlBOTUuMDcgOTUuMDcgMCAwIDEgNTg5IDMzMC40NHptLTI2Ny4xMSA4Ny44Ny00Mi43LTI0LjY1YTEuNTIgMS41MiAwIDAgMS0uODMtMS4xN1YyNzQuNTdhOTUuMDcgOTUuMDcgMCAwIDEgMTU1LjktNzNjLS43Ny40Mi0yLjExIDEuMTYtMyAxLjdsLTEwMSA1OC4zNGExNi40MSAxNi40MSAwIDAgMC04LjMgMTQuMzZ6bTIzLjE5LTUwTDQwMCAzMzYuNTlsNTQuOTIgMzEuN3Y2My40Mkw0MDAgNDYzLjQxbC01NC45Mi0zMS43eiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==); background-position: center; background-size: contain; transform:scale(1.19); -moz-transform:scale(1.19); display: block; width: 22px; min-height: 17px;  float: left; margin-right: 5px; background-repeat: no-repeat;}</style>';
+	over.innerHTML = '<i class="fa-5x fa fa-spinner"></i><style>.fa-spinner {animation: spin 5s infinite linear;-webkit-animation: spin2 5s infinite linear;}@keyframes spin {from {transform: scale(1) rotate(0deg);}to {transform: scale(1) rotate(360deg);}}@-webkit-keyframes spin2 {from {-webkit-transform: rotate(0deg);}to {-webkit-transform: rotate(360deg);}}.chatgptseo-refresh{float: right;right: 15px;z-index:5;position: absolute;top: 0;border-radius: 5px;} .fa-gpt{background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMiIgaGVpZ2h0PSIyMiIgdmlld0JveD0iMTQwIDE0MCA1MjAgNTIwIj48cGF0aCBkPSJNNjE3LjI0IDM1NGExMjYuMzYgMTI2LjM2IDAgMCAwLTEwLjg2LTEwMy43OSAxMjcuOCAxMjcuOCAwIDAgMC0xMzcuNjUtNjEuMzIgMTI2LjM2IDEyNi4zNiAwIDAgMC05NS4zMS00Mi40OSAxMjcuODEgMTI3LjgxIDAgMCAwLTEyMS45MiA4OC40OSAxMjYuNCAxMjYuNCAwIDAgMC04NC41IDYxLjMgMTI3LjgyIDEyNy44MiAwIDAgMCAxNS43MiAxNDkuODYgMTI2LjM2IDEyNi4zNiAwIDAgMCAxMC44NiAxMDMuNzkgMTI3LjgxIDEyNy44MSAwIDAgMCAxMzcuNjUgNjEuMzIgMTI2LjM2IDEyNi4zNiAwIDAgMCA5NS4zMSA0Mi40OSAxMjcuODEgMTI3LjgxIDAgMCAwIDEyMS45Ni04OC41NCAxMjYuNCAxMjYuNCAwIDAgMCA4NC41LTYxLjNBMTI3LjgyIDEyNy44MiAwIDAgMCA2MTcuMjQgMzU0ek00MjYuNTggNjIwLjQ5YTk0Ljc5IDk0Ljc5IDAgMCAxLTYwLjg1LTIyYy43Ny0uNDIgMi4xMi0xLjE2IDMtMS43bDEwMS01OC4zNGExNi40MiAxNi40MiAwIDAgMCA4LjMtMTQuMzdWMzgxLjY5bDQyLjY5IDI0LjY1YTEuNTIgMS41MiAwIDAgMSAuODMgMS4xN3YxMTcuOTJhOTUuMTggOTUuMTggMCAwIDEtOTQuOTcgOTUuMDZ6bS0yMDQuMjQtODcuMjNhOTQuNzQgOTQuNzQgMCAwIDEtMTEuMzQtNjMuN2MuNzUuNDUgMi4wNiAxLjI1IDMgMS43OWwxMDEgNTguMzRhMTYuNDQgMTYuNDQgMCAwIDAgMTYuNTkgMGwxMjMuMzEtNzEuMnY0OS4zYTEuNTMgMS41MyAwIDAgMS0uNjEgMS4zMWwtMTAyLjEgNTguOTVhOTUuMTYgOTUuMTYgMCAwIDEtMTI5Ljg1LTM0Ljc5em0tMjYuNTctMjIwLjQ5YTk0LjcxIDk0LjcxIDAgMCAxIDQ5LjQ4LTQxLjY4YzAgLjg3LS4wNSAyLjQxLS4wNSAzLjQ4djExNi42OGExNi40MSAxNi40MSAwIDAgMCA4LjI5IDE0LjM2TDM3Ni44IDQ3Ni44bC00Mi42OSAyNC42NWExLjUzIDEuNTMgMCAwIDEtMS40NC4xM2wtMTAyLjExLTU5YTk1LjE2IDk1LjE2IDAgMCAxLTM0Ljc5LTEyOS44MXptMzUwLjc0IDgxLjYyLTEyMy4zMS03MS4yIDQyLjY5LTI0LjY0YTEuNTMgMS41MyAwIDAgMSAxLjQ0LS4xM2wxMDIuMTEgNTguOTVhOTUuMDggOTUuMDggMCAwIDEtMTQuNjkgMTcxLjU1VjQwOC43NWExNi40IDE2LjQgMCAwIDAtOC4yNC0xNC4zNnpNNTg5IDMzMC40NGMtLjc1LS40Ni0yLjA2LTEuMjUtMy0xLjc5bC0xMDEtNTguMzRhMTYuNDYgMTYuNDYgMCAwIDAtMTYuNTkgMGwtMTIzLjMxIDcxLjJ2LTQ5LjNhMS41MyAxLjUzIDAgMCAxIC42MS0xLjMxbDEwMi4xLTU4LjlBOTUuMDcgOTUuMDcgMCAwIDEgNTg5IDMzMC40NHptLTI2Ny4xMSA4Ny44Ny00Mi43LTI0LjY1YTEuNTIgMS41MiAwIDAgMS0uODMtMS4xN1YyNzQuNTdhOTUuMDcgOTUuMDcgMCAwIDEgMTU1LjktNzNjLS43Ny40Mi0yLjExIDEuMTYtMyAxLjdsLTEwMSA1OC4zNGExNi40MSAxNi40MSAwIDAgMC04LjMgMTQuMzZ6bTIzLjE5LTUwTDQwMCAzMzYuNTlsNTQuOTIgMzEuN3Y2My40Mkw0MDAgNDYzLjQxbC01NC45Mi0zMS43eiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==); background-position: center; background-size: contain; transform:scale(1.19); -moz-transform:scale(1.19); display: block; width: 22px; min-height: 17px;  float: left; margin-right: 5px; background-repeat: no-repeat;}#ChatBtnSet .fa-play,#ChatBtnSet .fa-pause{padding-left:5px}</style>';
 	$(over).css({
 		'display':'none',
 		'position':'fixed',
