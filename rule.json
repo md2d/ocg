@@ -215,14 +215,13 @@
   },
   "catalog/manufacturer":{
       "name":{
-         "selector":"manufacturer_description[lang][name]",
+         "selector":"name",
          "prompt":"",
          "stable":true
       },
       "description":{
          "selector":"manufacturer_description[lang][description]",
          "prompt":"Create the brand description by that manufacturer name: \"{name}\"",
-         "stable":true,
          "maxLength":3899
       },
       "meta_title":{
