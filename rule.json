@@ -176,6 +176,7 @@
          "maxLength":180
       }
    },
+  "batch_editor/index":{},
   "catalog/review": {
       "author": {
         "selector": "author",
