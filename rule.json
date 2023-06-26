@@ -177,6 +177,7 @@
       }
    },
   "batch_editor/index":{},
+  "seo_presets":["Here are your first SEO PRESET"],
   "catalog/review": {
       "author": {
         "selector": "author",
