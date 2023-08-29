@@ -23,7 +23,7 @@
     "meta_description": {
       "selector": "product_description[lang][meta_description]",
       "prompt": "Create a meta description by that product name \"{name}\"",
-      "maxLength": 500
+      "maxLength": 133
     },
     "meta_keyword": {
       "selector": "product_description[lang][meta_keyword]",
@@ -60,7 +60,7 @@
     "meta_description": {
       "selector": "category_description[lang][meta_description]",
       "prompt": "Create a meta description by that category name \"{name}\"",
-      "maxLength": 300
+      "maxLength": 135
     },
     "meta_keyword": {
       "selector": "category_description[lang][meta_keyword]",
@@ -92,7 +92,7 @@
     "meta_description": {
       "selector": "information_description[lang][meta_description]",
       "prompt": "Create a meta description by that page title \"{title}\"",
-      "maxLength": 300
+      "maxLength": 135
     },
     "meta_keyword": {
       "selector": "information_description[lang][meta_keyword]",
@@ -129,7 +129,7 @@
     "meta_description": {
       "selector": "page_description[lang][meta_description]",
       "prompt": "Create a meta description by that category name \"{name}\"",
-      "maxLength": 300
+      "maxLength": 135
     },
     "meta_keyword": {
       "selector": "page_description[lang][meta_keyword]",
@@ -168,7 +168,7 @@
       "meta_description":{
          "selector":"manufacturer_description[lang][meta_description]",
          "prompt":"Create a meta description by that manufacturer name \"{name}\"",
-         "maxLength":500
+         "maxLength":135
       },
       "meta_keyword":{
          "selector":"manufacturer_description[lang][meta_keyword]",
