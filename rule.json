@@ -194,5 +194,38 @@
         "prompt": "Write a random customer review about that product \"{product}\"",
         "maxLength": 500
       }
+  },
+  "extension/module/filter_vier/hand_links": {
+    "title": {
+      "prompt": "Создай meta title для новой посадочной страницы",
+      "selector": "hand_links_lang[lang][title]",
+      "maxLength": 150
+    },
+    "meta_descr": {
+      "prompt": "Создай meta description для новой посадочной страницы",
+      "selector": "hand_links_lang[lang][meta_descr]",
+      "maxLength": 150
+    },
+    "keywords": {
+      "prompt": "Создай meta keywords для новой посадочной страницы",
+      "selector": "hand_links_lang[lang][keywords]",
+      "maxLength": 150
+    },
+    "meta_h1": {
+      "prompt": "Создай уникальный meta h1 (без html тегов) для новой посадочной страницы",
+      "selector": "hand_links_lang[lang][meta_h1]",
+      "maxLength": 150
+    },
+    "name": {
+      "stable": true,
+      "prompt": "",
+      "selector": "hand_links_lang[lang][name]",
+      "maxLength": 150
+    },
+    "discrib": {
+      "prompt": "Создай контент для новой посадочной страницы",
+      "selector": "hand_links_lang[lang][discrib]",
+      "maxLength": 1500
+    }
   }
 }
