@@ -7,32 +7,32 @@
       },
       "description": {
         "selector": "product_description[lang][description]",
-        "prompt": "Создай описание продукта по этому названию продукта. \"{name}\"",
+        "prompt": "Создайте описание для товара по этому названию товара: \"{name}\"",
         "maxLength": 1030
       },
       "meta_title": {
         "selector": "product_description[lang][meta_title]",
-        "prompt": "Создай meta title по этому названию продукта. \"{name}\"",
+        "prompt": "Создайте meta title для этого товара: \"{name}\"",
         "maxLength": 100
       },
        "meta_h1": {
         "selector": "product_description[lang][meta_h1]",
-        "prompt": "Создай уникальный meta h1 по этому названию продукта. \"{name}\"",
+        "prompt": "Создайте уникальный h1 заголовок (без html тегов) для этого товара: \"{name}\"",
         "maxLength": 100
       },
       "meta_description": {
         "selector": "product_description[lang][meta_description]",
-        "prompt": "Создайте meta description по этому названию продукта. \"{name}\"",
+        "prompt": "Создайте meta description для этого товара: \"{name}\"",
         "maxLength": 133
       },
       "meta_keyword": {
         "selector": "product_description[lang][meta_keyword]",
-        "prompt": "Создай мета keyword по названию этого продукта. \"{name}\"",
+        "prompt": "Создай мета keyword (через запятую) для товара с этим названием: \"{name}\"",
         "maxLength": 180
       },
       "tag": {
         "selector": "product_description[lang][tag]",
-        "prompt": "Создай несколько тегов (разделитель \",\") для этого названия продукта \"{name}\"",
+        "prompt": "Создай несколько тегов (разделитель \",\") для товара с названием: \"{name}\"",
         "maxLength": 190
       }
     },
