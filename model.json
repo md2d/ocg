@@ -1,0 +1,243 @@
+{
+  "deepseek": [
+    {
+      "id": "deepseek-chat",
+      "version": "DeepSeek-V3.2",
+      "description": "Non-thinking mode model for general chat, tool calling, and JSON output. Optimized for fast, efficient responses.",
+      "context_window": 128000,
+      "features": ["Tool Calls", "JSON Output", "FIM Completion"],
+      "pricing": {
+        "input_per_1M": "$0.28",
+        "output_per_1M": "$0.42",
+        "cache_hit_input_per_1M": "$0.028"
+      },
+      "status": "active"
+    },
+    {
+      "id": "deepseek-reasoner",
+      "version": "DeepSeek-V3.2",
+      "description": "Thinking mode model with built-in reasoning capabilities before responding. Ideal for complex problem-solving, math, and coding tasks.",
+      "context_window": 128000,
+      "features": ["Reasoning", "Tool Calls", "JSON Output"],
+      "pricing": {
+        "input_per_1M": "$0.28",
+        "output_per_1M": "$0.42",
+        "cache_hit_input_per_1M": "$0.028"
+      },
+      "status": "active"
+    },
+    {
+      "id": "deepseek-v3.2-exp",
+      "version": "DeepSeek-V3.2-Exp",
+      "description": "Experimental version introducing DeepSeek Sparse Attention (DSA) for improved long-context training and inference efficiency.",
+      "context_window": 128000,
+      "features": ["Hybrid-thinking mode", "DSA Architecture"],
+      "pricing": "Same as deepseek-chat",
+      "status": "active"
+    },
+    {
+      "id": "deepseek-r1",
+      "version": "DeepSeek-R1",
+      "description": "Reasoning-focused model with performance comparable to OpenAI's o1. Excels at mathematics, coding, and complex logical tasks.",
+      "context_window": 128000,
+      "features": ["Chain-of-Thought", "Logical Reasoning", "Math & Code Optimization"],
+      "pricing": {
+        "input_per_1M": "$0.55",
+        "output_per_1M": "$2.19"
+      },
+      "status": "active"
+    },
+    {
+      "id": "deepseek-r1-0528",
+      "version": "DeepSeek-R1-0528",
+      "description": "Enhanced version of DeepSeek-R1 with improved reasoning stability.",
+      "context_window": 128000,
+      "features": ["Chain-of-Thought", "Logical Reasoning"],
+      "status": "active"
+    },
+    {
+      "id": "deepseek-v3",
+      "version": "DeepSeek-V3",
+      "description": "Legacy base model (671B parameters, 37B active). Strong performance across coding, math, and general knowledge tasks.",
+      "context_window": 128000,
+      "pricing": {
+        "input_per_1M": "$0.25",
+        "output_per_1M": "$1.10"
+      },
+      "status": "active"
+    }
+  ],
+  "openai": [
+    {
+      "id": "gpt-5.4-mini",
+      "description": "Latest fast, small model optimized for coding and low-latency workloads. Supports text and image inputs, tool use, function calling, and has a 400k context window.",
+      "status": "active"
+    },
+    {
+      "id": "gpt-5.4-nano",
+      "description": "Ultra-fast, cost-efficient model for low-latency workflows. Available only via API.",
+      "status": "active"
+    },
+    {
+      "id": "gpt-5.2",
+      "description": "Most advanced GPT-5-series model offering maximum reasoning depth and reliability for mission-critical tasks.",
+      "status": "active"
+    },
+    {
+      "id": "gpt-5.1-codex-max",
+      "description": "Specialized model for complex coding and software engineering tasks.",
+      "status": "active"
+    },
+    {
+      "id": "gpt-5",
+      "description": "Flagship reasoning model. Expert-level responses, choosing when to use deeper reasoning for complex tasks.",
+      "status": "active"
+    },
+    {
+      "id": "gpt-5-mini",
+      "description": "Balanced model for real-time experiences, agents, and everyday tasks requiring reasoning.",
+      "status": "active"
+    },
+    {
+      "id": "gpt-5-nano",
+      "description": "Ultra-low-latency reasoning model focused on speed.",
+      "status": "active"
+    },
+    {
+      "id": "gpt-4.1",
+      "description": "OpenAI's previous flagship model for complex tasks across domains.",
+      "status": "active"
+    },
+    {
+      "id": "gpt-4.1-mini",
+      "description": "Balanced model offering a mix of intelligence, speed, and cost.",
+      "status": "active"
+    },
+    {
+      "id": "gpt-4o",
+      "description": "Omni model supporting text and image inputs. NOTE: Deprecated in ChatGPT as of Feb 2026, but still available via API.",
+      "status": "active"
+    },
+    {
+      "id": "gpt-4o-mini",
+      "description": "Streamlined, affordable model for fast, multimodal reasoning tasks.",
+      "status": "active"
+    },
+    {
+      "id": "o1",
+      "description": "Reasoning model designed for complex problem-solving and science tasks.",
+      "status": "active"
+    },
+    {
+      "id": "o3",
+      "description": "Advanced reasoning model for agentic workflows and deep analytical tasks.",
+      "status": "active"
+    },
+    {
+      "id": "o3-mini",
+      "description": "Faster, cost-efficient reasoning model for technical tasks.",
+      "status": "active"
+    },
+    {
+      "id": "gpt-oss-120b",
+      "description": "Large open-source model from OpenAI for general reasoning.",
+      "status": "active"
+    },
+    {
+      "id": "gpt-oss-20b",
+      "description": "Smaller open-source model from OpenAI for efficient fine-tuning.",
+      "status": "active"
+    }
+  ],
+  "yandexgpt": [
+    {
+      "id": "yandex-gpt-lite",
+      "description": "Fast, lightweight version for simple, routine tasks with low latency requirements.",
+      "status": "active"
+    },
+    {
+      "id": "yandex-gpt",
+      "description": "Base model balancing speed and quality for a wide range of business applications.",
+      "status": "active"
+    },
+    {
+      "id": "yandex-gpt-pro",
+      "description": "Most powerful version for complex reasoning, creative tasks, and deep analytics.",
+      "status": "active"
+    }
+  ],
+  "google_gemini": [
+    {
+      "id": "gemini-3-pro",
+      "description": "Flagship model for deep reasoning, complex projects, and nuanced collaboration (multimodal).",
+      "status": "preview"
+    },
+    {
+      "id": "gemini-3-flash",
+      "description": "Speed-optimized model for low-latency interactions and real-time applications.",
+      "status": "preview"
+    },
+    {
+      "id": "gemini-2.5-pro",
+      "description": "High-performance model for advanced reasoning, complex tasks, and high-quality content generation.",
+      "status": "active"
+    },
+    {
+      "id": "gemini-2.5-flash",
+      "description": "Fast, efficient model for responsive workflows and large-scale production use.",
+      "status": "active"
+    },
+    {
+      "id": "gemini-2.5-flash-lite",
+      "description": "Lightweight, low-cost model for simple tasks and high-throughput processing.",
+      "status": "active"
+    },
+    {
+      "id": "gemini-2.0-flash",
+      "description": "Versatile workhorse for everyday tasks with strong multimodal capabilities.",
+      "status": "active"
+    },
+    {
+      "id": "gemini-2.0-flash-lite",
+      "description": "Cost-efficient model for high-volume, text-heavy tasks.",
+      "status": "active"
+    },
+    {
+      "id": "gemini-1.5-pro",
+      "description": "Long-context model (up to 2M tokens) for processing vast amounts of data.",
+      "status": "active"
+    },
+    {
+      "id": "gemini-1.5-flash",
+      "description": "Fast and efficient model for high-frequency tasks with a large context window.",
+      "status": "active"
+    }
+  ],
+  "gigachat": [
+    {
+      "id": "gigachat-3.1-ultra",
+      "description": "Largest, most powerful flagship model (702B total, 36B active). Excels at complex reasoning, mathematics, and coding. Open-source under MIT license.",
+      "status": "active"
+    },
+    {
+      "id": "gigachat-3.1-lightning",
+      "description": "Fast, efficient Mixture-of-Experts model (10B total, 1.8B active). Quality on par with GPT-4o, optimized for speed and local deployment. Open-source.",
+      "status": "active"
+    },
+    {
+      "id": "gigachat-pro",
+      "description": "Premium model for complex tasks requiring high accuracy and deep understanding.",
+      "status": "active"
+    },
+    {
+      "id": "gigachat",
+      "description": "Standard model balancing performance and efficiency for general-purpose tasks.",
+      "status": "active"
+    },
+    {
+      "id": "gigachat-lite",
+      "description": "Lightweight, low-latency model for simple queries and high-volume automation.",
+      "status": "active"
+    }
+  ]
+}
