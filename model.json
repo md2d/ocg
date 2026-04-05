@@ -1,5 +1,5 @@
 {
-  "deepseek": [
+  "chatgpt": [
     {
       "id": "deepseek-chat",
       "version": "DeepSeek-V3.2",
@@ -67,7 +67,7 @@
       "status": "active"
     }
   ],
-  "openai": [
+  "chatgpt": [
     {
       "id": "gpt-5.4-mini",
       "description": "Latest fast, small model optimized for coding and low-latency workloads. Supports text and image inputs, tool use, function calling, and has a 400k context window.",
@@ -166,7 +166,7 @@
       "status": "active"
     }
   ],
-  "google_gemini": [
+  "gemini": [
     {
       "id": "gemini-3-pro",
       "description": "Flagship model for deep reasoning, complex projects, and nuanced collaboration (multimodal).",
