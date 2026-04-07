@@ -26,46 +26,7 @@
       },
       "status": "active"
     },
-    {
-      "id": "deepseek-v3.2-exp",
-      "version": "DeepSeek-V3.2-Exp",
-      "description": "Experimental version introducing DeepSeek Sparse Attention (DSA) for improved long-context training and inference efficiency.",
-      "context_window": 128000,
-      "features": ["Hybrid-thinking mode", "DSA Architecture"],
-      "pricing": "Same as deepseek-chat",
-      "status": "active"
-    },
-    {
-      "id": "deepseek-r1",
-      "version": "DeepSeek-R1",
-      "description": "Reasoning-focused model with performance comparable to OpenAI's o1. Excels at mathematics, coding, and complex logical tasks.",
-      "context_window": 128000,
-      "features": ["Chain-of-Thought", "Logical Reasoning", "Math & Code Optimization"],
-      "pricing": {
-        "input_per_1M": "$0.55",
-        "output_per_1M": "$2.19"
-      },
-      "status": "active"
-    },
-    {
-      "id": "deepseek-r1-0528",
-      "version": "DeepSeek-R1-0528",
-      "description": "Enhanced version of DeepSeek-R1 with improved reasoning stability.",
-      "context_window": 128000,
-      "features": ["Chain-of-Thought", "Logical Reasoning"],
-      "status": "active"
-    },
-    {
-      "id": "deepseek-v3",
-      "version": "DeepSeek-V3",
-      "description": "Legacy base model (671B parameters, 37B active). Strong performance across coding, math, and general knowledge tasks.",
-      "context_window": 128000,
-      "pricing": {
-        "input_per_1M": "$0.25",
-        "output_per_1M": "$1.10"
-      },
-      "status": "active"
-    }
+    
   ],
   "chatgpt": [
     {
@@ -84,7 +45,7 @@
       "status": "active"
     },
     {
-      "id": "gpt-5.1-codex-max",
+      "id": "gpt-5.1",
       "description": "Specialized model for complex coding and software engineering tasks.",
       "status": "active"
     },
@@ -191,52 +152,17 @@
       "id": "gemini-2.5-flash-lite",
       "description": "Lightweight, low-cost model for simple tasks and high-throughput processing.",
       "status": "active"
-    },
-    {
-      "id": "gemini-2.0-flash",
-      "description": "Versatile workhorse for everyday tasks with strong multimodal capabilities.",
-      "status": "active"
-    },
-    {
-      "id": "gemini-2.0-flash-lite",
-      "description": "Cost-efficient model for high-volume, text-heavy tasks.",
-      "status": "active"
-    },
-    {
-      "id": "gemini-1.5-pro",
-      "description": "Long-context model (up to 2M tokens) for processing vast amounts of data.",
-      "status": "active"
-    },
-    {
-      "id": "gemini-1.5-flash",
-      "description": "Fast and efficient model for high-frequency tasks with a large context window.",
-      "status": "active"
     }
   ],
   "gigachat": [
     {
-      "id": "gigachat-3.1-ultra",
+      "id": "GigaChat",
       "description": "Largest, most powerful flagship model (702B total, 36B active). Excels at complex reasoning, mathematics, and coding. Open-source under MIT license.",
       "status": "active"
     },
     {
-      "id": "gigachat-3.1-lightning",
+      "id": "GigaChat-Pro",
       "description": "Fast, efficient Mixture-of-Experts model (10B total, 1.8B active). Quality on par with GPT-4o, optimized for speed and local deployment. Open-source.",
-      "status": "active"
-    },
-    {
-      "id": "gigachat-pro",
-      "description": "Premium model for complex tasks requiring high accuracy and deep understanding.",
-      "status": "active"
-    },
-    {
-      "id": "gigachat",
-      "description": "Standard model balancing performance and efficiency for general-purpose tasks.",
-      "status": "active"
-    },
-    {
-      "id": "gigachat-lite",
-      "description": "Lightweight, low-latency model for simple queries and high-volume automation.",
       "status": "active"
     }
   ]
